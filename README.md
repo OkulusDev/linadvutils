@@ -24,7 +24,7 @@ cd linadvutils
 make clean build install
 ```
 
-### Usage
+## Usage
 Below you can see examples of how the utility works from the LAU repository:
 
 ### lau_echo
@@ -65,6 +65,17 @@ lauls -t
 
 # Output all files and directories (including hidden ones), along with permissions and modification time information
 lauls -a -p -t
+```
+
+### gapf
+gapf is a simple program to output file content and information about a file, and gapf can also interact with directories by outputting directory information.
+
+```bash
+# Printing info and content example.txt
+gapf example.txt
+
+# Printing info about example_dir folder
+gapf example_dir
 ```
 
 ## License

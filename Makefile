@@ -36,7 +36,7 @@ LIBS 		  	= $(LIBS_DIRS)
 SED           	= sed
 STRIP         	= strip
 
-all: clean build install
+all: build install clean
 
 $(BIN_DIR)/%.o: $(SRC_DIR)/%.c
 	$(CC) $(CC_FLAGS) -c $< -o $@
@@ -51,10 +51,7 @@ install:
 $(TARGETS): %: $(BIN_DIR)/%.o
 	$(CC) $(CC_FLAGS) $< -o $(BIN_DIR)/$@
 
-run:
-	./$(BIN_DIR)/$(TARGET)
-
 clean:
 	$(DEL_FILE) bin/*
 
-.PHONY: build
+.PHONY: build install clean
