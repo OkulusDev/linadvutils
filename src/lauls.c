@@ -10,41 +10,64 @@
 #include <stdio.h>
 #include <dirent.h>
 #include <sys/stat.h>
+#include <sys/types.h>
+#include <unistd.h>
 #include <stdlib.h>
 #include <stdbool.h>
 #include <time.h>
 #include <string.h>
 
-#define MAX_FILE_NAME_LENGTH 256
-#define MAX_GRID_COLUMNS 4
+// COLORS
+#define RESET			"\033[0m"
+#define YELLOW			"\033[1;33m"
+#define GREEN			"\033[1;32m"
+#define BLUE			"\033[1;34m"
+#define CYAN			"\033[1;36m"
+#define BOLD			"\033[1m"
 
-void print_styled(struct stat file_stat) {
-	if (S_ISDIR(file_stat.st_mode)) {
-		printf("\033[1;33m"); // yellow color for dirs
-	} else if (file_stat.st_mode & S_IXUSR) {
-		printf("\033[1;32m"); // green color for executable files
+// CONSTANTS
+#define MAX_FILE_NAME_LENGTH 256
+#define MAX_GRID_COLUMNS 5
+
+void print_styled(const char* color, const char* text, char spch) {
+	/* Print styled text, with colors and (if exists) special char */
+	if (spch != ' ') {
+		printf("%c%s%-10s%s", spch, color, text, RESET);
 	} else {
-		printf("\033[0m"); // white color for other files
+		printf("%s%-10s%s", color, text, RESET);
 	}
 }
 
 void check_permissions(struct stat fileStat) {
-	printf("\033[1;34m");
+	/* Function for checking and outputting permissions, file or directory
+	 * group. If st_mode fileStat is equal to d, then d is displayed in yellow,
+	 * otherwise just -. And so on, we list write read and run permissions and
+	 * output them in different colors:
+	 * (user - green, group - blue, other - cyan)
+	 *
+	 * Input:
+	 *  struct stat fileStat
+	 *
+	 * Output: void*/
+	printf(YELLOW);
+	printf((S_ISDIR(fileStat.st_mode)) ? "d"
+			: ((S_ISLNK(fileStat.st_mode)) ? : "-"));
+	printf(GREEN);
  	printf((fileStat.st_mode & S_IRUSR) ? "r" : "-");
 	printf((fileStat.st_mode & S_IWUSR) ? "w" : "-");
 	printf((fileStat.st_mode & S_IXUSR) ? "x" : "-");
-	printf("\033[1;35m");
+	printf(BLUE);
 	printf((fileStat.st_mode & S_IRGRP) ? "r" : "-");
 	printf((fileStat.st_mode & S_IWGRP) ? "w" : "-");
 	printf((fileStat.st_mode & S_IXGRP) ? "x" : "-");
-	printf("\033[1;36m");
+	printf(CYAN);
 	printf((fileStat.st_mode & S_IROTH) ? "r" : "-");
 	printf((fileStat.st_mode & S_IWOTH) ? "w" : "-");
 	printf((fileStat.st_mode & S_IXOTH) ? "x" : "-");
-	printf("\033[0m");
+	printf(RESET);
 }
 
-void display_files(char *dir_path, bool show_permissions, bool show_time, 
+void display_files(char *dir_path, bool show_permissions, bool show_time,
 					bool show_hidden, bool list_show) {
 	DIR* dir = opendir(dir_path);
 	if (dir == NULL) {
@@ -62,9 +85,24 @@ void display_files(char *dir_path, bool show_permissions, bool show_time,
 			sprintf(file_path, "%s/%s", dir_path, entry->d_name);
 			stat(file_path, &file_stat);
 
-			print_styled(file_stat);
-
-			printf("%-15s", entry->d_name);
+			if (S_ISDIR(file_stat.st_mode)) {
+				print_styled(YELLOW, entry->d_name, '/');
+			} else if (S_ISLNK(file_stat.st_mode)) {
+				print_styled(CYAN, entry->d_name, ' ');
+			} else if ((file_stat.st_mode & S_IXUSR) ||
+						(file_stat.st_mode & S_IXGRP)
+						|| (file_stat.st_mode & S_IXOTH)) {
+				print_styled(GREEN, entry->d_name, '*');
+			} else if (access(file_path, R_OK) == 0 &&
+						(strstr(entry->d_name, ".png") != NULL
+						|| strstr(entry->d_name, ".jpg") != NULL
+						|| strstr(entry->d_name, ".jpeg") != NULL
+						|| strstr(entry->d_name, ".svg") != NULL
+						|| strstr(entry->d_name, ".bmp") != NULL)) {
+				print_styled(BLUE, entry->d_name, ' ');
+			} else {
+				print_styled(BOLD, entry->d_name, ' ');
+			}
 
 			if (show_permissions) {
 				check_permissions(file_stat);
@@ -73,7 +111,8 @@ void display_files(char *dir_path, bool show_permissions, bool show_time,
 
 			if (show_time) {
 				char time_str[100];
-				strftime(time_str, sizeof(time_str), "%d.%m.%Y %H:%M:%S", localtime(&file_stat.st_ctime));
+				strftime(time_str, sizeof(time_str), "%d.%m.%Y %H:%M:%S",
+						localtime(&file_stat.st_ctime));
 				printf("[%s] ", time_str);
 			}
 
@@ -113,7 +152,8 @@ int main(int argc, char* argv[]) {
 		}
 	}
 
-	display_files(dir_path, show_permissions, show_time, show_hidden, list_show);
+	display_files(dir_path, show_permissions, show_time,
+					show_hidden, list_show);
 	printf("\n");
 
 	return EXIT_SUCCESS;

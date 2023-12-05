@@ -42,6 +42,31 @@ $ lau_echo "&"
 &
 ```
 
+### lauls
+lauls is an ls-like program that outputs all files and directories in a given directory. It has the ability to show the file creation date, permissions and access. By default, it outputs directories and files in the form of a grid, but with the -l flag, the program outputs everything in a list.
+
+```bash
+# Display files and directories in the folder
+lauls <folder>
+# or
+lauls
+
+# Display all (including hidden) files and directories in the current folder
+lauls -a
+
+# Display files and directories as a list
+lauls -l
+
+# Display files and directories together with rights information
+lauls -p
+
+# Output files and directories along with information about the time of change
+lauls -t
+
+# Output all files and directories (including hidden ones), along with permissions and modification time information
+lauls -a -p -t
+```
+
 ## License
 
 The creator and developer of this repository is Okulus Dev (also known as DrArgentum or Alekseev Bronislav)
