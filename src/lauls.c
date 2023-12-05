@@ -21,20 +21,22 @@
 #define RESET			"\033[0m"
 #define YELLOW			"\033[1;33m"
 #define GREEN			"\033[1;32m"
+#define RED 			"\033[1;31m"
+#define PURPLE			"\033[1;35m"
 #define BLUE			"\033[1;34m"
 #define CYAN			"\033[1;36m"
 #define BOLD			"\033[1m"
 
 // CONSTANTS
 #define MAX_FILE_NAME_LENGTH 256
-#define MAX_GRID_COLUMNS 5
+#define MAX_GRID_COLUMNS 4
 
 void print_styled(const char* color, const char* text, char spch) {
 	/* Print styled text, with colors and (if exists) special char */
-	if (spch != ' ') {
-		printf("%c%s%-10s%s", spch, color, text, RESET);
+	if (spch != ' ') { // if special char is empty
+		printf("%c%s%-15s%s", spch, color, text, RESET);
 	} else {
-		printf("%s%-10s%s", color, text, RESET);
+		printf("%s%-15s%s", color, text, RESET);
 	}
 }
 
@@ -60,7 +62,7 @@ void check_permissions(struct stat fileStat) {
 	printf((fileStat.st_mode & S_IRGRP) ? "r" : "-");
 	printf((fileStat.st_mode & S_IWGRP) ? "w" : "-");
 	printf((fileStat.st_mode & S_IXGRP) ? "x" : "-");
-	printf(CYAN);
+	printf(PURPLE);
 	printf((fileStat.st_mode & S_IROTH) ? "r" : "-");
 	printf((fileStat.st_mode & S_IWOTH) ? "w" : "-");
 	printf((fileStat.st_mode & S_IXOTH) ? "x" : "-");
@@ -85,6 +87,18 @@ void display_files(char *dir_path, bool show_permissions, bool show_time,
 			sprintf(file_path, "%s/%s", dir_path, entry->d_name);
 			stat(file_path, &file_stat);
 
+			if (show_permissions) {
+				check_permissions(file_stat);
+				printf("%s(%lo)%s ", YELLOW, (unsigned long)file_stat.st_mode & 0777, RESET);
+			}
+
+			if (show_time) {
+				char time_str[100];
+				strftime(time_str, sizeof(time_str), "%d.%m.%Y %H:%M:%S",
+						localtime(&file_stat.st_ctime));
+				printf("%s[%s]%s ", CYAN, time_str, RESET);
+			}
+
 			if (S_ISDIR(file_stat.st_mode)) {
 				print_styled(YELLOW, entry->d_name, '/');
 			} else if (S_ISLNK(file_stat.st_mode)) {
@@ -102,18 +116,6 @@ void display_files(char *dir_path, bool show_permissions, bool show_time,
 				print_styled(BLUE, entry->d_name, ' ');
 			} else {
 				print_styled(BOLD, entry->d_name, ' ');
-			}
-
-			if (show_permissions) {
-				check_permissions(file_stat);
-				printf("(%lo) ", (unsigned long)file_stat.st_mode & 0777);
-			}
-
-			if (show_time) {
-				char time_str[100];
-				strftime(time_str, sizeof(time_str), "%d.%m.%Y %H:%M:%S",
-						localtime(&file_stat.st_ctime));
-				printf("[%s] ", time_str);
 			}
 
 			file_count++;
