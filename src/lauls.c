@@ -29,14 +29,14 @@
 
 // CONSTANTS
 #define MAX_FILE_NAME_LENGTH 256
-#define MAX_GRID_COLUMNS 4
+#define MAX_GRID_COLUMNS 8
 
 void print_styled(const char* color, const char* text, char spch) {
 	/* Print styled text, with colors and (if exists) special char */
 	if (spch != ' ') { // if special char is empty
-		printf("%c%s%-15s%s", spch, color, text, RESET);
+		printf("%c%s%s%s\t", spch, color, text, RESET);
 	} else {
-		printf("%s%-15s%s", color, text, RESET);
+		printf("%s%s%s\t", color, text, RESET);
 	}
 }
 
@@ -89,7 +89,8 @@ void display_files(char *dir_path, bool show_permissions, bool show_time,
 
 			if (show_permissions) {
 				check_permissions(file_stat);
-				printf("%s(%lo)%s ", YELLOW, (unsigned long)file_stat.st_mode & 0777, RESET);
+				printf("%s(%lo)%s ", YELLOW,
+						(unsigned long)file_stat.st_mode & 0777, RESET);
 			}
 
 			if (show_time) {
@@ -120,7 +121,7 @@ void display_files(char *dir_path, bool show_permissions, bool show_time,
 
 			file_count++;
 
-			if (file_count % MAX_GRID_COLUMNS == 0 && !show_time) {
+			if (file_count % MAX_GRID_COLUMNS == 0 && !show_time && file_count - MAX_GRID_COLUMNS > 0) {
 				printf("\n");
 			} else if (show_time || list_show) {
 				printf("\n");
