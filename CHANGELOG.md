@@ -1,4 +1,5 @@
-3ef7c70 (HEAD -> main, origin/main, origin/HEAD) refactor,fix,docs: improve documentation, fix errors, add Makefile highlight in lauls
+551253c (HEAD -> main, origin/main, origin/HEAD) feat/fix/docs: add lautch (touch analogue), some changes, improve docs
+3ef7c70 refactor,fix,docs: improve documentation, fix errors, add Makefile highlight in lauls
 da5a7cf feat/docs/fix: fix all errors, add laups, laugrep, laulsblk
 3f46e0d Update changelog
 11ca243 fix: fix colors in gapf
