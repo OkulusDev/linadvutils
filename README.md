@@ -47,24 +47,24 @@ lauls is an ls-like program that outputs all files and directories in a given di
 
 ```bash
 # Display files and directories in the folder
-lauls <folder>
+$ lauls <folder>
 # or
-lauls
+$ lauls
 
 # Display all (including hidden) files and directories in the current folder
-lauls -a
+$ lauls -a
 
 # Display files and directories as a list
-lauls -l
+$ lauls -l
 
 # Display files and directories together with rights information
-lauls -p
+$ lauls -p
 
 # Output files and directories along with information about the time of change
-lauls -t
+$ lauls -t
 
 # Output all files and directories (including hidden ones), along with permissions and modification time information
-lauls -a -p -t
+$ lauls -a -p -t
 ```
 
 ### gapf
@@ -72,18 +72,47 @@ gapf is a simple program to output file content and information about a file, an
 
 ```bash
 # Printing info and content example.txt
-gapf example.txt
+$ gapf example.txt
 
 # Printing info about example_dir folder
-gapf example_dir
+$ gapf example_dir
 ```
 
 ### calc
 calc is a simple terminal calculator. It supports operation priority, parentheses, and Pi.
 
 ```bash
+$ calc
+
 Enter an expression: 2 + 2 * 2
 Result: 6
+```
+
+### laulsblk
+laulsblk is a simple utility for displaying information about connected disks
+
+```bash
+$ laulsblk
+
+NAME   MAJ:MIN RM SIZE   RO TYPE   MOUNTPOINTS
+sdb    0       1  2097152 1  disk   -
+sda    0       1  2097152 1  disk   -
+```
+
+### laups
+laups allows you to view all running processes on your system
+
+```bash
+$ laups
+```
+
+### laugrep
+laugrep allows you to search and output the words you are looking for in the output.
+
+```bash
+$ lau_echo "hello" | laugrep "h"
+
+<RED COLOR>hello</RED COLOR> world
 ```
 
 ## License
