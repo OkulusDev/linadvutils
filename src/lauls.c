@@ -92,7 +92,11 @@ void print_grid(char** items, int count, char** colors) {
 		for (int j = 0; j < num_cols; j++) {
 			int index = i + j * num_rows;
 			if (index < count) {
-				printf("%s%-*s	", colors[index], max_name_length, items[index]);
+				if (strcmp(items[index], "Makefile") == 0) {
+					printf("%s%-*s	", RED, max_name_length, items[index]);
+				} else {
+					printf("%s%-*s	", colors[index], max_name_length, items[index]);
+				}
 				printf("%s", RESET);
 			}
 		}
@@ -233,14 +237,15 @@ int main(int argc, char* argv[]) {
 				show_hidden = true;
 			} else if (argv[i][1] == 'l') {
 				show_list = true;
+			} else {
+				printf("Usage: lauls -<p|t|a|l>");
+				exit(1);
 			}
 		} else {
 			dir_path = argv[i];
 		}
 	}
 
-	//display_files(dir_path, show_permissions, show_time,
-	//				show_hidden, list_show);
 	list_files(dir_path, show_permissions, show_time,
 						show_hidden, show_list);
 

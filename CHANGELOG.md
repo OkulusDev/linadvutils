@@ -1,4 +1,5 @@
-3f46e0d (HEAD -> main, origin/main, origin/HEAD) Update changelog
+da5a7cf (HEAD -> main, origin/main, origin/HEAD) feat/docs/fix: fix all errors, add laups, laugrep, laulsblk
+3f46e0d Update changelog
 11ca243 fix: fix colors in gapf
 a92140e Update changelog
 aebc8fd feat/fix: edit makefile, add calc with docs
