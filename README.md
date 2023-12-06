@@ -142,6 +142,37 @@ Success: Directory 'world' created.
 Success: Directory 'world/hello' created.
 ```
 
+### lauping
+lauping - a analogue for a ping from linux
+
+```bash
+$ lauping --help
+Usage: lauping -d <destination ip>
+
+Also you can use:
+-c <count of packages>
+-d <destination ip>
+-t <timeout in ms>
+-rt <response_timeout>
+
+$ lauping -d 8.8.8.8
+
+Ping stats for 8.8.8.8
+
+Received 24 bytes of data from 8.8.8.8
+ICMP response type: 0
+ICMP response code: 0
+ICMP response checksum: 6639
+Time: 138ms
+Sequence: 0
+Process id: 3177
+
+^C
+Sent: 1   Received: 1    Loss: 0 (100%)
+
+Socket closed. Exiting...
+```
+
 ## License
 
 The creator and developer of this repository is Okulus Dev (also known as DrArgentum or Alekseev Bronislav)
