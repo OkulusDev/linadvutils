@@ -73,7 +73,7 @@ int main(int argc, char* argv[]) {
     int lineNumber = 1;
 
     while (fgets(line, sizeof(line), file)) {
-        printf("%s%3d: %s%s", BLUE_COLOR, lineNumber, line, RESET_COLOR);
+        printf("%s%3d: %s%s", BLUE_COLOR, lineNumber, RESET_COLOR, line);
         lineNumber++;
     }
 
