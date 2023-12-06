@@ -1,4 +1,5 @@
-56f22bd (HEAD -> main, origin/main, origin/HEAD) Update changelog
+77edc7d (HEAD -> main, origin/main, origin/HEAD) feat/docs: add lauping(ping analogue), improve documentation, small changes
+56f22bd Update changelog
 e079619 feat/docs: add laumkdir (mkdir analogue), improve docs
 a85612c Update changelog
 551253c feat/fix/docs: add lautch (touch analogue), some changes, improve docs
