@@ -128,6 +128,20 @@ Created testFile
 # -v - info about it
 ```
 
+### laumkdir
+laumkdir - minimalistic analogue to mkdir.
+
+```bash
+$ laumkdir hello
+
+Success: Directory 'hello' created.
+
+$ laumkdir world/hello
+
+Success: Directory 'world' created.
+Success: Directory 'world/hello' created.
+```
+
 ## License
 
 The creator and developer of this repository is Okulus Dev (also known as DrArgentum or Alekseev Bronislav)
