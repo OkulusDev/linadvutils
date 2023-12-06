@@ -1,6 +1,8 @@
 # Компиляторы
 CC := gcc
+CXX := g++
 CC_FLAGS := -g -Wall -Wl,-O1 -pipe -O2 -flto=2 -fno-fat-lto-objects -fuse-linker-plugin -fPIC
+CXX_FLAGS := -g -Wall -Wl,-O1 -pipe -O2 -flto=2 -fno-fat-lto-objects -fuse-linker-plugin -fPIC
 
 # Директории
 SRC_DIR := src
@@ -11,8 +13,15 @@ TARGET := linadvutils
 
 # Исходные коды
 CSOURCES := $(wildcard $(SRC_DIR)/*.c)
+CXXSOURCES := $(wildcard $(SRC_DIR)/*.cpp)
+
 TARGETS := $(patsubst $(SRC_DIR)/%.c,%,$(CSOURCES))
+BIN_C_FILES := $(patsubst src/%.c,$(BIN_DIR)/%,$(CSOURCES))
+BIN_CPP_FILES := $(patsubst src/%.cpp,$(BIN_DIR)/%,$(CXXSOURCES))
+
 OBJ_FILES := $(patsubst $(SRC_DIR)/%.c,$(BIN_DIR)/%.o,$(CSOURCES))
+OBJ_CXX_FILES := $(patsubst $(SRC_DIR)/%.cpp,$(BIN_DIR)/%.o,$(CXXSOURCES))
+
 BINS := $(wildcard $(BIN_DIR)/*)
 
 SUDO		  	= sudo
@@ -41,15 +50,19 @@ all: build install clean
 $(BIN_DIR)/%.o: $(SRC_DIR)/%.c
 	$(CC) $(CC_FLAGS) -c $< -o $@
 
-build: $(TARGETS)
+build: $(BIN_C_FILES) $(BIN_CPP_FILES)
 
 install:
 	@for file in $(wildcard $(BIN_DIR)/*); do \
 		$(SUDO) $(INSTALL_PROGRAM) $$file /usr/local/bin/; \
 	done
 
-$(TARGETS): %: $(BIN_DIR)/%.o
-	$(CC) $(CC_FLAGS) $< -o $(BIN_DIR)/$@
+$(BIN_DIR)/%: src/%.c
+	$(CC) $(CXX_FLAGS) $(CFLAGS) -o $@ $<
+
+# Компиляция C++-файлов
+$(BIN_DIR)/%: src/%.cpp
+	$(CXX) $(CXX_FLAGS) $(CXXFLAGS) -o $@ $<
 
 clean:
 	$(DEL_FILE) bin/*

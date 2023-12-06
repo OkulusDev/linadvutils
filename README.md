@@ -78,6 +78,14 @@ gapf example.txt
 gapf example_dir
 ```
 
+### calc
+calc is a simple terminal calculator. It supports operation priority, parentheses, and Pi.
+
+```bash
+Enter an expression: 2 + 2 * 2
+Result: 6
+```
+
 ## License
 
 The creator and developer of this repository is Okulus Dev (also known as DrArgentum or Alekseev Bronislav)
