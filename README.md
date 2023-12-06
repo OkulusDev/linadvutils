@@ -115,6 +115,19 @@ $ lau_echo "hello" | laugrep "h"
 <RED COLOR>hello</RED COLOR> world
 ```
 
+### lautch
+lautch - simple utilite for creating files
+
+```bash
+$ lautch testFile
+
+Created testFile
+
+# Other flags:
+# -c - create (default)
+# -v - info about it
+```
+
 ## License
 
 The creator and developer of this repository is Okulus Dev (also known as DrArgentum or Alekseev Bronislav)

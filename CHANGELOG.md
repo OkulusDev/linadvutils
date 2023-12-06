@@ -1,4 +1,5 @@
-da5a7cf (HEAD -> main, origin/main, origin/HEAD) feat/docs/fix: fix all errors, add laups, laugrep, laulsblk
+3ef7c70 (HEAD -> main, origin/main, origin/HEAD) refactor,fix,docs: improve documentation, fix errors, add Makefile highlight in lauls
+da5a7cf feat/docs/fix: fix all errors, add laups, laugrep, laulsblk
 3f46e0d Update changelog
 11ca243 fix: fix colors in gapf
 a92140e Update changelog
