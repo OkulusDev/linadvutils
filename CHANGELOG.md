@@ -1,4 +1,5 @@
-a4f2fe1 (HEAD -> main, origin/main, origin/HEAD) Clear bin dir
+aebc8fd (HEAD -> main, origin/main, origin/HEAD) feat/fix: edit makefile, add calc with docs
+a4f2fe1 Clear bin dir
 667a799 feat/docs: add gapf (cat command analogue from linux) and create docs about him
 389e88a docs: delete files, clear src directory, improve docs
 422c908 fix/feat/docs: update docs, fix errors, full update lauls
