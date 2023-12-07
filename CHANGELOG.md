@@ -1,4 +1,6 @@
-77edc7d (HEAD -> main, origin/main, origin/HEAD) feat/docs: add lauping(ping analogue), improve documentation, small changes
+d67ddf3 (HEAD -> main, origin/main, origin/HEAD) Clearing
+96b490d clean bin directory and update changelog
+77edc7d feat/docs: add lauping(ping analogue), improve documentation, small changes
 56f22bd Update changelog
 e079619 feat/docs: add laumkdir (mkdir analogue), improve docs
 a85612c Update changelog

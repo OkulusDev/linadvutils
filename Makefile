@@ -1,8 +1,8 @@
 # Компиляторы
 CC := gcc
 CXX := g++
-CC_FLAGS := -g -Wall -Wl,-O1 -pipe -O2 -flto=2 -fno-fat-lto-objects -fuse-linker-plugin -fPIC
-CXX_FLAGS := -g -Wall -Wl,-O1 -pipe -O2 -flto=2 -fno-fat-lto-objects -fuse-linker-plugin -fPIC
+CC_FLAGS := -g -Wall -Wl,-O1 -pipe -O3 -flto=2 -fno-fat-lto-objects -fuse-linker-plugin -fPIC -mtune=native -march=native
+CXX_FLAGS := -g -Wall -Wl,-O1 -pipe -O3 -flto=2 -fno-fat-lto-objects -fuse-linker-plugin -fPIC -mtune=native -march=native
 
 # Директории
 SRC_DIR := src
