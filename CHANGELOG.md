@@ -1,4 +1,5 @@
-d67ddf3 (HEAD -> main, origin/main, origin/HEAD) Clearing
+5fe011d (HEAD -> main, origin/main, origin/HEAD) optimizing/fix: optimize compiling and fix small bugs
+d67ddf3 Clearing
 96b490d clean bin directory and update changelog
 77edc7d feat/docs: add lauping(ping analogue), improve documentation, small changes
 56f22bd Update changelog
